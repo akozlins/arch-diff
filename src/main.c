@@ -18,6 +18,7 @@
 static const char * default_root      = "/";
 static const char * default_db_path   = "/var/lib/pacman/";
 static const char * default_ignores[] = {
+	"/etc/mtab",
 	"/dev/*",
 	"/etc/ssl/certs/*",
 	"/proc/*",
@@ -28,7 +29,7 @@ static const char * default_ignores[] = {
 	"/srv/http/*",
 	"/var/cache/fontconfig/*",
 	"/var/cache/pacman/pkg/*",
-	"/var/log/*",
+//	"/var/log/*",
 	"/var/spool/*",
 	"/var/tmp/*"
 };
@@ -37,6 +38,7 @@ static const char * skip[] = {
 	"/.INSTALL",
 	"/.CHANGELOG",
 	"/.BUILDINFO",
+	"/lost+found/",
 	NULL
 };
 
@@ -209,9 +211,9 @@ int main(int argc, char ** argv) {
 	opts.root_path       = default_root;
 	opts.db_path         = default_db_path;
 	opts.ignore_md5      = false;
-	opts.ignore_mode     = false;
-	opts.ignore_uid      = false;
-	opts.ignore_gid      = false;
+	opts.ignore_mode     = true;
+	opts.ignore_uid      = true;
+	opts.ignore_gid      = true;
 	opts.ignore_patterns = NULL;
 	opts.RED             = "";
 	opts.GREEN           = "";
