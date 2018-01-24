@@ -18,8 +18,8 @@
 static const char * default_root      = "/";
 static const char * default_db_path   = "/var/lib/pacman/";
 static const char * default_ignores[] = {
-	"/etc/mtab",
 	"/dev/*",
+	"/etc/ca-certificates/*",
 	"/etc/ssl/certs/*",
 	"/proc/*",
 	"/root/*",
@@ -27,9 +27,11 @@ static const char * default_ignores[] = {
 	"/sys/*",
 	"/tmp/*",
 	"/srv/http/*",
-	"/var/cache/fontconfig/*",
-	"/var/cache/pacman/pkg/*",
+	"/var/cache/*",
 //	"/var/log/*",
+	"/usr/lib/*",
+	"/usr/share/*",
+	"/boot/*",
 	"/var/spool/*",
 	"/var/tmp/*"
 };
@@ -38,7 +40,6 @@ static const char * skip[] = {
 	"/.INSTALL",
 	"/.CHANGELOG",
 	"/.BUILDINFO",
-	"/lost+found/",
 	NULL
 };
 
@@ -75,6 +76,9 @@ static void list_untracked_files(struct filesystem_entry_t * parent, size_t * co
 						break;
 					}
 				}
+
+//				if(fnmatch("/boot/*", path, FNM_PATHNAME | FNM_LEADING_DIR) == 0) ignore = true;
+//				if(fnmatch("/usr/share/*", path, FNM_PATHNAME | FNM_LEADING_DIR) == 0) ignore = true;
 
 				if(!ignore) {
 					if(counter != NULL)
